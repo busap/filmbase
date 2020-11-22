@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 
-import TrendingMovies from "../components/TrendingMovies";
+import Trending from "../components/Trending";
 
 type Props = {
   trending: Array<any>;
@@ -9,7 +9,7 @@ type Props = {
 const Home: FC<Props> = ({ trending }) => {
   return (
     <>
-      <TrendingMovies trending={trending} />
+      <Trending trending={trending} />
     </>
   );
 };

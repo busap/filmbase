@@ -14,6 +14,7 @@ import NotFound from "./pages/NotFound";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Profile from "./pages/Profile";
+import Detail from "./pages/Detail";
 //Import Components
 import Nav from "./components/Nav";
 
@@ -46,14 +47,12 @@ const App: FC = () => {
   const [trending, setTrending] = useState<[]>([]);
 
   //Functions
-  //Get trending
   const getTrending = async (url: string) => {
     const response = await axios.get(url);
     setTrending(response.data.results);
   };
 
   //Hooks
-  //Get trending on load
   useEffect(() => {
     getTrending(
       "https://api.themoviedb.org/3/trending/all/week?api_key=da0e9e70e92a41b0c9ecb97614df3b6e"
@@ -75,6 +74,7 @@ const App: FC = () => {
               <Route exact path="/login" component={Login} />
               <Route exact path="/register" component={Register} />
               <Route exact path="/profile" component={Profile} />
+              <Route exact path="/:type/:id" component={Detail} />
               <Route component={NotFound} />
             </Switch>
           </Container>

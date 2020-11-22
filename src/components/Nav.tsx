@@ -76,9 +76,6 @@ const useStyles = makeStyles((theme: Theme) =>
         },
       },
     },
-    link: {
-      textDecoration: "none",
-    },
     btn: {
       color: "#41EAD4",
     },
@@ -110,7 +107,7 @@ const Nav: FC<Props> = ({ isLoggedIn }) => {
             <MenuIcon />
           </IconButton>
           <Typography className={classes.title} variant="h6" noWrap>
-            <Link to="/" className={classes.link}>
+            <Link to="/">
               <Button className={classes.btn}>Home</Button>
             </Link>
           </Typography>
@@ -129,16 +126,16 @@ const Nav: FC<Props> = ({ isLoggedIn }) => {
           </div>
           {isLoggedIn ? (
             <>
-              <Link to="/profile" className={classes.link}>
+              <Link to="/profile">
                 <Fab className={classes.fab}>PB</Fab>
               </Link>
             </>
           ) : (
             <>
-              <Link to="/login" className={classes.link}>
+              <Link to="/login">
                 <Button className={classes.btn}>Login</Button>
               </Link>
-              <Link to="/register" className={classes.link}>
+              <Link to="/register">
                 <Button className={classes.btn}>Register</Button>
               </Link>
             </>
