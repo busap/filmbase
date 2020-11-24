@@ -62,7 +62,7 @@ const App: FC = () => {
   return (
     <MuiThemeProvider theme={ourTheme}>
       <Router>
-        <Nav isLoggedIn={isLoggedIn} />
+        <Nav/>
         <main className="App">
           <Container className={classes.container}>
             <Switch>

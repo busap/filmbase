@@ -17,10 +17,7 @@ import {
 import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
 import Fab from "@material-ui/core/Fab";
-
-type Props = {
-  isLoggedIn: boolean;
-};
+import { useLoggedInUser } from '../utils/firebase'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -91,8 +88,10 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const Nav: FC<Props> = ({ isLoggedIn }) => {
+const Nav: FC = () => {
   const classes = useStyles();
+
+  const isLoggedIn = useLoggedInUser();
 
   return (
     <nav className={classes.root}>
@@ -133,10 +132,7 @@ const Nav: FC<Props> = ({ isLoggedIn }) => {
           ) : (
             <>
               <Link to="/login">
-                <Button className={classes.btn}>Login</Button>
-              </Link>
-              <Link to="/register">
-                <Button className={classes.btn}>Register</Button>
+                <Button className={classes.btn}>Log in or Register</Button>
               </Link>
             </>
           )}
