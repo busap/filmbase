@@ -1,12 +1,12 @@
 import React, { FC, useState } from "react";
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from "react-router-dom";
 
 import Grid from "@material-ui/core/Grid";
+import Fab from "@material-ui/core/Fab";
 
-import { Link } from "react-router-dom";
-import Fab from '@material-ui/core/Fab';
-import { Favorite, FavoriteBorder } from '@material-ui/icons';
-import { useLoggedInUser, favoritesCollection } from '../utils/firebase'
+import { Favorite, FavoriteBorder } from "@material-ui/icons";
+import { useLoggedInUser, favoritesCollection } from "../utils/firebase";
+
 type Props = {
   item: any;
 };
@@ -19,22 +19,21 @@ const Thumb: FC<Props> = ({ item }) => {
 
   const favoriteClicked = async () => {
     if (!user) {
-      push('/login');
+      push("/login");
     } else {
-      setIsFavorite(!isFavorite)
-      
+      setIsFavorite(!isFavorite);
+
       if (isFavorite) {
         const data = {
           movieId: "SomeMovie123",
         };
-  
+
         await favoritesCollection.doc(user.uid).set(data);
       } else {
         // await favoriesCollection.doc(user.uid).delete()
       }
-      
     }
-  }
+  };
 
   return (
     <Grid item xs={4} md={2} className="thumb">
@@ -52,9 +51,9 @@ const Thumb: FC<Props> = ({ item }) => {
         <h5>{item.title ? item.title : item.name}</h5>
       </Link>
       <Fab onClick={favoriteClicked}>
-          {isFavorite && <Favorite />}
-          {!isFavorite && <FavoriteBorder />}
-        </Fab>
+        {isFavorite && <Favorite />}
+        {!isFavorite && <FavoriteBorder />}
+      </Fab>
     </Grid>
   );
 };

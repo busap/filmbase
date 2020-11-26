@@ -17,7 +17,7 @@ import {
 import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
 import Fab from "@material-ui/core/Fab";
-import { useLoggedInUser } from '../utils/firebase'
+import { useLoggedInUser } from "../utils/firebase";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -105,7 +105,7 @@ const Nav: FC = () => {
           >
             <MenuIcon />
           </IconButton>
-          <Typography className={classes.title} variant="h6" noWrap>
+          <Typography className={classes.title} noWrap>
             <Link to="/">
               <Button className={classes.btn}>Home</Button>
             </Link>
