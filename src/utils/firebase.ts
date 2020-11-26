@@ -57,8 +57,11 @@ const provider = new firebase.auth.GoogleAuthProvider();
 export const signInWithGoogle = () => 
     firebase.auth().signInWithRedirect(provider);
 
-export type Favorite = {
-    movieId: String;
+export type Movie = {
+    movieId: string;
+    userId: string;
+    isFavorite: boolean;
+    seen: boolean;
 }
 
-export const favoritesCollection = db.collection('favorites') as firebase.firestore.CollectionReference<Favorite>;
+export const moviesCollection = db.collection('movies') as firebase.firestore.CollectionReference<Movie>;

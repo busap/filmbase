@@ -19,6 +19,7 @@ import Detail from "./pages/Detail";
 import Nav from "./components/Nav";
 
 //Import Data
+import { Movie, moviesCollection } from './utils/firebase'
 
 //MUI Theme
 const ourTheme = createMuiTheme({
@@ -43,14 +44,21 @@ const App: FC = () => {
   const classes = useStyles();
 
   // State
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(true);
+  
   const [trending, setTrending] = useState<[]>([]);
-
+  const [firebaseMovies, setFirebaseMovies] = useState<Movie[]>([])
   //Functions
   const getTrending = async (url: string) => {
     const response = await axios.get(url);
+    await getFirebaseMovies()
     setTrending(response.data.results);
   };
+
+  const getFirebaseMovies = async() => {
+    const moviesSnapshot = await moviesCollection.get();
+
+    setFirebaseMovies(moviesSnapshot.docs.map(doc => doc.data())); 
+  }
 
   //Hooks
   useEffect(() => {
@@ -69,7 +77,7 @@ const App: FC = () => {
               <Route
                 exact
                 path="/"
-                render={() => <Home trending={trending} />}
+                render={() => <Home trending={trending} movies={firebaseMovies}/>}
               />
               <Route exact path="/login" component={Login} />
               <Route exact path="/register" component={Register} />
