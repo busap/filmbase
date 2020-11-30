@@ -40,7 +40,8 @@ const Thumb: FC<Props> = ({ item, movie }) => {
           movieId: item.id,
           userId: user.uid,
           isFavorite: favorite,
-          seen: false
+          seen: false,
+          apiItem: item
         };
 
         await moviesCollection.add(newMovieData)
@@ -67,7 +68,8 @@ const Thumb: FC<Props> = ({ item, movie }) => {
             movieId: item.id,
             userId: user.uid,
             isFavorite: false,
-            seen: wasSeen
+            seen: wasSeen,
+            apiItem: item
           };
   
           await moviesCollection.add(newMovieData)

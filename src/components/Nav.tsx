@@ -110,6 +110,16 @@ const Nav: FC = () => {
               <Button className={classes.btn}>Home</Button>
             </Link>
           </Typography>
+          <Typography className={classes.title} noWrap>
+            <Link to="/favorites">
+              <Button className={classes.btn}>Favorites</Button>
+            </Link>
+          </Typography>
+          <Typography className={classes.title} noWrap>
+            <Link to="/seen">
+              <Button className={classes.btn}>Seen</Button>
+            </Link>
+          </Typography>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />

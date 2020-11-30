@@ -62,6 +62,7 @@ export type Movie = {
     userId: string;
     isFavorite: boolean;
     seen: boolean;
+    apiItem: any;
 }
 
 export const moviesCollection = db.collection('movies') as firebase.firestore.CollectionReference<Movie>;
