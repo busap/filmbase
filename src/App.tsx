@@ -49,6 +49,7 @@ const App: FC = () => {
   
   const [trending, setTrending] = useState<[]>([]);
   const [firebaseMovies, setFirebaseMovies] = useState<Movie[]>([])
+  const [discover, setDiscover] = useState<[]>([]);
   //Functions
   const getTrending = async (url: string) => {
     const response = await axios.get(url);
@@ -60,10 +61,18 @@ const App: FC = () => {
     const moviesSnapshot = await moviesCollection.get();
 
     setFirebaseMovies(moviesSnapshot.docs.map(doc => doc.data())); 
-  }
+  };
+
+  const getDiscover = async (url: string) => {
+    const response = await axios.get(url);
+    setDiscover(response.data.results);
+  };
 
   //Hooks
   useEffect(() => {
+    getDiscover(
+      "https://api.themoviedb.org/3/discover/movie?api_key=da0e9e70e92a41b0c9ecb97614df3b6e&language=en-US&sort_by=release_date.desc&include_adult=false&include_video=false&page=1&primary_release_year=" + new Date().getFullYear()
+    );
     getTrending(
       "https://api.themoviedb.org/3/trending/all/week?api_key=da0e9e70e92a41b0c9ecb97614df3b6e"
     );
@@ -79,7 +88,7 @@ const App: FC = () => {
               <Route
                 exact
                 path="/"
-                render={() => <Home trending={trending} movies={firebaseMovies}/>}
+                render={() => <Home trending={trending} movies={firebaseMovies} discover={discover}/>}
               />
               <Route exact path="/favorites" render={() => <Favorites/>}/>
               <Route exact path="/seen" render={() => <Seen/>}/>

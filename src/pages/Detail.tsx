@@ -78,8 +78,9 @@ const Detail: FC = () => {
   let id = params.id.replace(":", "");
 
   useEffect(() => {
+    const movieType = (type === undefined) ? type : "movie";
     getDetail(
-      `https://api.themoviedb.org/3/${type}/${id}?api_key=da0e9e70e92a41b0c9ecb97614df3b6e`
+      `https://api.themoviedb.org/3/${movieType}/${id}?api_key=da0e9e70e92a41b0c9ecb97614df3b6e`
     );
   }, []);
 
