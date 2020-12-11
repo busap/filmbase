@@ -6,7 +6,6 @@ import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
-import Paper from "@material-ui/core/Paper";
 import {
   Today,
   Translate,
@@ -78,9 +77,8 @@ const Detail: FC = () => {
   let id = params.id.replace(":", "");
 
   useEffect(() => {
-    const movieType = (type === undefined) ? type : "movie";
     getDetail(
-      `https://api.themoviedb.org/3/${movieType}/${id}?api_key=da0e9e70e92a41b0c9ecb97614df3b6e`
+      `https://api.themoviedb.org/3/${type}/${id}?api_key=da0e9e70e92a41b0c9ecb97614df3b6e`
     );
   }, []);
 

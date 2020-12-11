@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, Dispatch, SetStateAction } from "react";
 import { Link } from "react-router-dom";
 
 import { Button } from "@material-ui/core";
@@ -15,7 +15,7 @@ import {
 } from "@material-ui/core/styles";
 import SearchIcon from "@material-ui/icons/Search";
 import Fab from "@material-ui/core/Fab";
-import { useLoggedInUser } from "../utils/firebase";
+import { useLoggedInUser, signOut } from "../utils/firebase";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -27,10 +27,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     title: {
       flexGrow: 1,
-      display: "none",
-      [theme.breakpoints.up("sm")]: {
-        display: "block",
-      },
+      display: "block",
     },
     search: {
       position: "relative",
@@ -40,7 +37,7 @@ const useStyles = makeStyles((theme: Theme) =>
         backgroundColor: fade(theme.palette.common.white, 0.25),
       },
       margin: theme.spacing(0, 2),
-      width: "100%",
+      width: "auto",
       [theme.breakpoints.up("sm")]: {
         marginLeft: theme.spacing(1),
         width: "auto",
@@ -86,10 +83,15 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const Nav: FC = () => {
+type Props = {
+  searchQuery: string;
+  setSearchQuery: Dispatch<SetStateAction<string>>;
+};
+
+const Nav: FC<Props> = ({ searchQuery, setSearchQuery }) => {
   const classes = useStyles();
 
-  const isLoggedIn = useLoggedInUser();
+  const user = useLoggedInUser();
 
   return (
     <nav className={classes.root}>
@@ -98,16 +100,6 @@ const Nav: FC = () => {
           <Typography className={classes.title} noWrap>
             <Link to="/">
               <Button className={classes.btn}>Home</Button>
-            </Link>
-          </Typography>
-          <Typography className={classes.title} noWrap>
-            <Link to="/favorites">
-              <Button className={classes.btn}>Favorites</Button>
-            </Link>
-          </Typography>
-          <Typography className={classes.title} noWrap>
-            <Link to="/seen">
-              <Button className={classes.btn}>Seen</Button>
             </Link>
           </Typography>
           <div className={classes.search}>
@@ -120,19 +112,35 @@ const Nav: FC = () => {
                 root: classes.inputRoot,
                 input: classes.inputInput,
               }}
+              value={searchQuery}
               inputProps={{ "aria-label": "search" }}
+              onChange={(e) => setSearchQuery(e.target.value)}
             />
           </div>
-          {isLoggedIn ? (
+          {user ? (
             <>
               <Link to="/profile">
                 <Fab className={classes.fab}>PB</Fab>
               </Link>
+              <Button
+                variant="contained"
+                size="large"
+                color="primary"
+                onClick={async () => {
+                  try {
+                    await signOut();
+                  } catch (err) {
+                    alert(err.message);
+                  }
+                }}
+              >
+                Sign Out
+              </Button>
             </>
           ) : (
             <>
               <Link to="/login">
-                <Button className={classes.btn}>Log in or Register</Button>
+                <Button className={classes.btn}>Log In</Button>
               </Link>
             </>
           )}

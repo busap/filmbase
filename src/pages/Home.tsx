@@ -1,17 +1,20 @@
 import React, { FC } from "react";
 
 import Trending from "../components/Trending";
-import { Movie } from "../utils/firebase"
+import Discover from "../components/Discover";
+import { Movie } from "../utils/firebase";
+
 type Props = {
   trending: Array<any>;
   discover: Array<any>;
-  movies: Movie[]
+  movies: Movie[];
 };
 
 const Home: FC<Props> = ({ trending, discover, movies }) => {
   return (
     <>
-      <Trending trending={trending} movies={movies} discover={discover}/>
+      <Trending trending={trending} movies={movies} />
+      <Discover movies={movies} discover={discover} />
     </>
   );
 };

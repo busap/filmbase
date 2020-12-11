@@ -15,13 +15,11 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Profile from "./pages/Profile";
 import Detail from "./pages/Detail";
-import Favorites from "./pages/Favorites"
-import Seen from "./pages/Seen"
+import Search from "./pages/Search";
 //Import Components
 import Nav from "./components/Nav";
-
 //Import Data
-import { Movie, moviesCollection } from './utils/firebase'
+import { Movie, moviesCollection } from "./utils/firebase";
 
 //MUI Theme
 const ourTheme = createMuiTheme({
@@ -46,21 +44,17 @@ const App: FC = () => {
   const classes = useStyles();
 
   // State
-  
   const [trending, setTrending] = useState<[]>([]);
-  const [firebaseMovies, setFirebaseMovies] = useState<Movie[]>([])
+  const [firebaseMovies, setFirebaseMovies] = useState<Movie[]>([]);
   const [discover, setDiscover] = useState<[]>([]);
+  const [searched, setSearched] = useState<[]>([]);
+  const [searchQuery, setSearchQuery] = useState<string>("");
+
   //Functions
   const getTrending = async (url: string) => {
     const response = await axios.get(url);
-    await getFirebaseMovies()
+    await getFirebaseMovies();
     setTrending(response.data.results);
-  };
-
-  const getFirebaseMovies = async() => {
-    const moviesSnapshot = await moviesCollection.get();
-
-    setFirebaseMovies(moviesSnapshot.docs.map(doc => doc.data())); 
   };
 
   const getDiscover = async (url: string) => {
@@ -68,30 +62,62 @@ const App: FC = () => {
     setDiscover(response.data.results);
   };
 
+  const getFirebaseMovies = async () => {
+    const moviesSnapshot = await moviesCollection.get();
+
+    setFirebaseMovies(moviesSnapshot.docs.map((doc) => doc.data()));
+  };
+
+  const getSearched = async (url: string) => {
+    const response = await axios.get(url);
+    setSearched(response.data.results);
+  };
+
   //Hooks
   useEffect(() => {
-    getDiscover(
-      "https://api.themoviedb.org/3/discover/movie?api_key=da0e9e70e92a41b0c9ecb97614df3b6e&language=en-US&sort_by=release_date.desc&include_adult=false&include_video=false&page=1&primary_release_year=" + new Date().getFullYear()
-    );
     getTrending(
       "https://api.themoviedb.org/3/trending/all/week?api_key=da0e9e70e92a41b0c9ecb97614df3b6e"
     );
   }, []);
 
+  useEffect(() => {
+    getDiscover(
+      "https://api.themoviedb.org/3/discover/movie?api_key=da0e9e70e92a41b0c9ecb97614df3b6e&language=en-US&sort_by=release_date.desc&include_adult=false&include_video=false&page=1&primary_release_year=" +
+        new Date().getFullYear()
+    );
+  }, []);
+
+  useEffect(() => {
+    getSearched(
+      `https://api.themoviedb.org/3/search/multi?api_key=da0e9e70e92a41b0c9ecb97614df3b6e&query=${searchQuery}`
+    );
+  }, [searchQuery]);
+
   return (
     <MuiThemeProvider theme={ourTheme}>
       <Router>
-        <Nav/>
+        <Nav searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
         <main className="App">
           <Container className={classes.container}>
             <Switch>
               <Route
                 exact
                 path="/"
-                render={() => <Home trending={trending} movies={firebaseMovies} discover={discover}/>}
+                render={() => (
+                  <Home
+                    trending={trending}
+                    movies={firebaseMovies}
+                    discover={discover}
+                  />
+                )}
               />
-              <Route exact path="/favorites" render={() => <Favorites/>}/>
-              <Route exact path="/seen" render={() => <Seen/>}/>
+              <Route
+                exact
+                path="/search"
+                render={() => (
+                  <Search movies={firebaseMovies} searched={searched} />
+                )}
+              />
               <Route exact path="/login" component={Login} />
               <Route exact path="/register" component={Register} />
               <Route exact path="/profile" component={Profile} />

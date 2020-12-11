@@ -8,21 +8,18 @@ import { Movie, useLoggedInUser } from "../utils/firebase";
 import { Box } from "@material-ui/core";
 
 type Props = {
-  trending: Array<any>;
+  discover: Array<any>;
   movies: Movie[];
 };
 
-const Trending: FC<Props> = ({ trending, movies }) => {
-  //Remove people (left just movie and tv)
-  trending.filter((trend) => trend.type !== "person");
-
+const Discover: FC<Props> = ({ discover, movies }) => {
   const user = useLoggedInUser();
 
   return (
     <>
-      <h3>Now trending</h3>
+      <h3>Discover recent releases</h3>
       <Grid container spacing={1} justify="center">
-        {trending.slice(0, 6).map((item) => {
+        {discover.slice(0, 6).map((item) => {
           const movie = movies.find(
             (movie) => movie.movieId === item.id && user?.uid === movie.userId
           );
@@ -35,4 +32,4 @@ const Trending: FC<Props> = ({ trending, movies }) => {
   );
 };
 
-export default Trending;
+export default Discover;
