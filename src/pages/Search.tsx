@@ -11,7 +11,7 @@ type Props = {
 
 const Search: FC<Props> = ({ movies, searched }) => {
   const user = useLoggedInUser();
-
+  
   return (
     <>
       {searched !== [] ? (

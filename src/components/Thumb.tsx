@@ -25,7 +25,6 @@ const Thumb: FC<Props> = ({ item, movie }) => {
 
   const user = useLoggedInUser();
   const { push } = useHistory();
-
   const favoriteClicked = async () => {
     if (!user) {
       push("/login");

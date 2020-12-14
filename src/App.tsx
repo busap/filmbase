@@ -1,6 +1,6 @@
 //Import Dependencies
 import React, { FC, useEffect, useState } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, useHistory } from "react-router-dom";
 import axios from "axios";
 //Import MUI
 import Container from "@material-ui/core/Container";
@@ -49,6 +49,7 @@ const App: FC = () => {
   const [discover, setDiscover] = useState<[]>([]);
   const [searched, setSearched] = useState<[]>([]);
   const [searchQuery, setSearchQuery] = useState<string>("");
+  
 
   //Functions
   const getTrending = async (url: string) => {
