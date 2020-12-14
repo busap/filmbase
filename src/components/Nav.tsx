@@ -97,7 +97,7 @@ const Nav: FC<Props> = ({ searchQuery, setSearchQuery }) => {
   const history = useHistory();
 
   const handleChangeSearch = (e: any) => {
-    if (history.location.pathname != '/search') {
+    if (history.location.pathname !== '/search') {
       history.push('/search')
     } 
     setSearchQuery(e.target.value)

@@ -1,6 +1,6 @@
 //Import Dependencies
 import React, { FC, useEffect, useState } from "react";
-import { BrowserRouter as Router, Route, Switch, useHistory } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import axios from "axios";
 //Import MUI
 import Container from "@material-ui/core/Container";
@@ -79,6 +79,7 @@ const App: FC = () => {
     getTrending(
       "https://api.themoviedb.org/3/trending/all/week?api_key=da0e9e70e92a41b0c9ecb97614df3b6e"
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {

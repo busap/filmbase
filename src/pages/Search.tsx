@@ -1,6 +1,5 @@
 import { Grid } from "@material-ui/core";
-import axios from "axios";
-import React, { FC, useEffect, useState } from "react";
+import React, { FC } from "react";
 import Thumb from "../components/Thumb";
 import { Movie, useLoggedInUser } from "../utils/firebase";
 
