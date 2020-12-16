@@ -89,9 +89,11 @@ const App: FC = () => {
   }, []);
 
   useEffect(() => {
-    getSearched(
-      `https://api.themoviedb.org/3/search/multi?api_key=da0e9e70e92a41b0c9ecb97614df3b6e&query=${searchQuery}`
-    );
+    if (searchQuery.length !== 0){
+      getSearched(
+        `https://api.themoviedb.org/3/search/multi?api_key=da0e9e70e92a41b0c9ecb97614df3b6e&query=${searchQuery}`
+      );
+    }
   }, [searchQuery]);
 
   return (
@@ -109,6 +111,7 @@ const App: FC = () => {
                     trending={trending}
                     movies={firebaseMovies}
                     discover={discover}
+                    getMovies={getFirebaseMovies}
                   />
                 )}
               />

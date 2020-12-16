@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 
 import Trending from "../components/Trending";
 import Discover from "../components/Discover";
@@ -8,9 +8,15 @@ type Props = {
   trending: Array<any>;
   discover: Array<any>;
   movies: Movie[];
+  getMovies: () => Promise<void>;
 };
 
-const Home: FC<Props> = ({ trending, discover, movies }) => {
+const Home: FC<Props> = ({ trending, discover, movies, getMovies }) => {
+
+  useEffect(() => {
+    getMovies();
+  })
+
   return (
     <>
       <Trending trending={trending} movies={movies} />

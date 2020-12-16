@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 
 import Grid from "@material-ui/core/Grid";
@@ -25,6 +25,11 @@ const Thumb: FC<Props> = ({ item, movie }) => {
 
   const user = useLoggedInUser();
   const { push } = useHistory();
+
+  useEffect(() => {
+    setIsFavorite(movie?.isFavorite ?? false);
+    setSeen(movie?.seen ?? false);
+  }, [movie])
 
   const favoriteClicked = async () => {
     if (!user) {

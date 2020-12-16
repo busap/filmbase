@@ -41,15 +41,15 @@ const Profile: FC = () => {
       <h1>Profile</h1>
       {isLoggedIn && (
         <>
-          <Grid container spacing={1}>
-            <Grid item xs={12} direction="row" justify="center">
+          <Grid container spacing={1} direction="row" justify="center">
+            <Grid item xs={12}>
               <Typography variant="subtitle1">{isLoggedIn.email}</Typography>
             </Grid>
           </Grid>
 
           <h3>Favorite Movies</h3>
           <Grid container spacing={1} justify="center">
-            {favMovies.slice(0, 6).map((movie) => {
+            {favMovies.map((movie) => {
               const item = movie.apiItem;
 
               return <Thumb key={item.id} item={item} movie={movie} />;
@@ -57,7 +57,7 @@ const Profile: FC = () => {
           </Grid>
           <h3>Seen Movies</h3>
           <Grid container spacing={1} justify="center">
-            {seenMovies.slice(0, 6).map((movie) => {
+            {seenMovies.map((movie) => {
               const item = movie.apiItem;
 
               return <Thumb key={item.id} item={item} movie={movie} />;
