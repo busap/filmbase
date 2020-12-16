@@ -1,7 +1,6 @@
 import React, { FC, Dispatch, SetStateAction } from "react";
-import { useHistory } from "react-router-dom";
 
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 import { Button } from "@material-ui/core";
 
@@ -94,6 +93,7 @@ const Nav: FC<Props> = ({ searchQuery, setSearchQuery }) => {
   const classes = useStyles();
 
   const user = useLoggedInUser();
+
   const history = useHistory();
 
   const handleChangeSearch = (e: any) => {
@@ -125,7 +125,6 @@ const Nav: FC<Props> = ({ searchQuery, setSearchQuery }) => {
               value={searchQuery}
               inputProps={{ "aria-label": "search" }}
               onChange={(e) => handleChangeSearch(e)}
-              // onChange={(e) => setSearchQuery(e.target.value)}
             />
           </div>
           {user ? (
