@@ -1,6 +1,6 @@
 import React, { FC, useState } from "react";
 import { useLoggedInUser, moviesCollection, Movie } from "../utils/firebase";
-import { Typography, Grid, Button } from "@material-ui/core";
+import { Typography, Grid } from "@material-ui/core";
 
 import Thumb from "../components/Thumb";
 
