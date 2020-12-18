@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useState, useEffect } from "react";
 import { useLoggedInUser, moviesCollection, Movie } from "../utils/firebase";
 import { Typography, Grid } from "@material-ui/core";
 
@@ -9,32 +9,54 @@ const Profile: FC = () => {
 
   const [favMovies, setFavMovies] = useState<Movie[]>([]);
   const [seenMovies, setSeenMovies] = useState<Movie[]>([]);
+  const [renderer, setRenderer] = useState<boolean>(false);
 
-  moviesCollection.onSnapshot(
-    (snapshot) => {
-      // Access .docs property of snapshot
-      setFavMovies(
-        snapshot.docs
-          .map((doc) => doc.data())
-          .filter(
-            (movie) => movie.isFavorite && movie.userId === isLoggedIn?.uid
-          )
-      );
-    },
-    (err) => console.log(err.message)
-  );
+  useEffect(() => {
+    moviesCollection
+      .get()
+      .then((response) => {
+        setFavMovies( 
+          response.docs
+            .map((doc) => doc.data())
+            .filter(
+              (movie) => movie.isFavorite && movie.userId === isLoggedIn?.uid
+            )
+        );
+        setSeenMovies(
+          response.docs
+            .map((doc) => doc.data())
+            .filter((movie) => movie.seen && movie.userId === isLoggedIn?.uid)
+        );
+        setRenderer(true);
+      })
+      .catch(err => console.log(err));
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  moviesCollection.onSnapshot(
-    (snapshot) => {
+  useEffect(() => {
+    const unsubscribe = moviesCollection.onSnapshot(
+      (snapshot) => {
+        
       // Access .docs property of snapshot
-      setSeenMovies(
-        snapshot.docs
-          .map((doc) => doc.data())
-          .filter((movie) => movie.seen && movie.userId === isLoggedIn?.uid)
+        setFavMovies( 
+          snapshot.docs
+            .map((doc) => doc.data())
+            .filter(
+              (movie) => movie.isFavorite && movie.userId === isLoggedIn?.uid
+            )
+        );
+        setSeenMovies(
+          snapshot.docs
+            .map((doc) => doc.data())
+            .filter((movie) => movie.seen && movie.userId === isLoggedIn?.uid)
+        );
+      },
+
+        (err) => console.log(err.message)
       );
-    },
-    (err) => console.log(err.message)
-  );
+      return () => unsubscribe();
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [renderer])
 
   return (
     <div>
