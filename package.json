@@ -2,6 +2,7 @@
   "name": "moviedb",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://filmbase-94134.firebaseapp.com/",
   "dependencies": {
     "@firebase/analytics": "^0.6.2",
     "@material-ui/core": "^4.11.0",
