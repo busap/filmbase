@@ -100,7 +100,7 @@ const App: FC = () => {
   return (
     <MuiThemeProvider theme={ourTheme}>
       <Router>
-        <Nav searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+        <Nav searchQuery={searchQuery} setSearchQuery={setSearchQuery} getFirebaseMovies={getFirebaseMovies} />
         <main className="App">
           <Container className={classes.container}>
             <Switch>

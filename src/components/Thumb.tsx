@@ -116,7 +116,9 @@ const Thumb: FC<Props> = ({ item, movie }) => {
         className="thumb-img-link"
       >
         <img
-          src={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
+          src={item.poster_path
+            ? `https://image.tmdb.org/t/p/w500/${item.poster_path}`
+            : `https://via.placeholder.com/300`}
           alt={item.title ? item.title : item.name}
           className="thumb-img"
         />
