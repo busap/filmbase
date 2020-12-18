@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from "react";
+import React, { FC } from "react";
 
 import Trending from "../components/Trending";
 import Discover from "../components/Discover";
@@ -11,11 +11,7 @@ type Props = {
   getMovies: () => Promise<void>;
 };
 
-const Home: FC<Props> = ({ trending, discover, movies, getMovies }) => {
-
-  useEffect(() => {
-    getMovies();
-  })
+const Home: FC<Props> = ({ trending, discover, movies }) => {
 
   return (
     <>

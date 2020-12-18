@@ -86,9 +86,10 @@ const useStyles = makeStyles((theme: Theme) =>
 type Props = {
   searchQuery: string;
   setSearchQuery: Dispatch<SetStateAction<string>>;
+  getFirebaseMovies: () => Promise<void>;
 };
 
-const Nav: FC<Props> = ({ searchQuery, setSearchQuery }) => {
+const Nav: FC<Props> = ({ searchQuery, setSearchQuery, getFirebaseMovies }) => {
   const classes = useStyles();
 
   const user = useLoggedInUser();
@@ -108,7 +109,7 @@ const Nav: FC<Props> = ({ searchQuery, setSearchQuery }) => {
         <Toolbar>
           <Typography className={classes.title} noWrap>
             <Link to="/">
-              <Button className={classes.btn}>Home</Button>
+              <Button className={classes.btn} onClick={getFirebaseMovies}>Home</Button>
             </Link>
           </Typography>
           <div className={classes.search}>
