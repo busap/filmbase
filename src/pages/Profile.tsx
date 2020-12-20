@@ -36,8 +36,7 @@ const Profile: FC = () => {
   useEffect(() => {
     const unsubscribe = moviesCollection.onSnapshot(
       (snapshot) => {
-        
-      // Access .docs property of snapshot
+        // Access .docs property of snapshot
         setFavMovies( 
           snapshot.docs
             .map((doc) => doc.data())

@@ -5,14 +5,15 @@ import Grid from "@material-ui/core/Grid";
 import Thumb from "./Thumb";
 
 import { Movie, useLoggedInUser } from "../utils/firebase";
-import { Box } from "@material-ui/core";
+import { Box, CircularProgress } from "@material-ui/core";
 
 type Props = {
   trending: Array<any>;
   movies: Movie[];
+  loading: boolean;
 };
 
-const Trending: FC<Props> = ({ trending, movies }) => {
+const Trending: FC<Props> = ({ trending, movies, loading }) => {
   //Remove people (left just movie and tv)
   trending.filter((trend) => trend.type !== "person");
 
@@ -22,7 +23,7 @@ const Trending: FC<Props> = ({ trending, movies }) => {
     <>
       <h3>Now trending</h3>
       <Grid container spacing={1} justify="center">
-        {trending.slice(0, 6).map((item) => {
+        {loading ? <CircularProgress /> : trending.slice(0, 6).map((item) => {
           const movie = movies.find(
             (movie) => movie.movieId === item.id && user?.uid === movie.userId
           );

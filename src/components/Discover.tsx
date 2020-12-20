@@ -5,21 +5,22 @@ import Grid from "@material-ui/core/Grid";
 import Thumb from "./Thumb";
 
 import { Movie, useLoggedInUser } from "../utils/firebase";
-import { Box } from "@material-ui/core";
+import { Box, CircularProgress } from "@material-ui/core";
 
 type Props = {
   discover: Array<any>;
   movies: Movie[];
+  loading: boolean;
 };
 
-const Discover: FC<Props> = ({ discover, movies }) => {
+const Discover: FC<Props> = ({ discover, movies, loading }) => {
   const user = useLoggedInUser();
 
   return (
     <>
       <h3>Discover recent releases</h3>
       <Grid container spacing={1} justify="center">
-        {discover.slice(0, 6).map((item) => {
+        {loading ? <CircularProgress /> : discover.slice(0, 6).map((item) => {
           const movie = movies.find(
             (movie) => movie.movieId === item.id && user?.uid === movie.userId
           );

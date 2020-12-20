@@ -49,17 +49,24 @@ const App: FC = () => {
   const [discover, setDiscover] = useState<[]>([]);
   const [searched, setSearched] = useState<[]>([]);
   const [searchQuery, setSearchQuery] = useState<string>("");
+  const [loadingDiscover, setLoadingDiscover] = useState<boolean>(false);
+  const [loadingTrending, setLoadingTrending] = useState<boolean>(false);
+  const [loadingSearch, setLoadingSearch] = useState<boolean>(false);
 
   //Functions
   const getTrending = async (url: string) => {
+    setLoadingTrending(true);
     const response = await axios.get(url);
     await getFirebaseMovies();
     setTrending(response.data.results);
+    setLoadingTrending(false);
   };
 
   const getDiscover = async (url: string) => {
+    setLoadingDiscover(true);
     const response = await axios.get(url);
     setDiscover(response.data.results);
+    setLoadingDiscover(false);
   };
 
   const getFirebaseMovies = async () => {
@@ -68,8 +75,10 @@ const App: FC = () => {
   };
 
   const getSearched = async (url: string) => {
+    setLoadingSearch(true);
     const response = await axios.get(url);
     setSearched(response.data.results);
+    setLoadingSearch(false);
   };
 
   //Hooks
@@ -115,6 +124,8 @@ const App: FC = () => {
                     movies={firebaseMovies}
                     discover={discover}
                     getMovies={getFirebaseMovies}
+                    loadingDiscover={loadingDiscover}
+                    loadingTrending={loadingTrending}
                   />
                 )}
               />
@@ -122,7 +133,11 @@ const App: FC = () => {
                 exact
                 path="/search"
                 render={() => (
-                  <Search movies={firebaseMovies} searched={searched} />
+                  <Search
+                    movies={firebaseMovies}
+                    searched={searched}
+                    loading={loadingSearch}
+                  />
                 )}
               />
               <Route exact path="/login" component={Login} />

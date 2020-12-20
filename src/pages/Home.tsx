@@ -9,14 +9,16 @@ type Props = {
   discover: Array<any>;
   movies: Movie[];
   getMovies: () => Promise<void>;
+  loadingTrending: boolean;
+  loadingDiscover: boolean;
 };
 
-const Home: FC<Props> = ({ trending, discover, movies }) => {
+const Home: FC<Props> = ({ trending, discover, movies, loadingTrending, loadingDiscover }) => {
 
   return (
     <>
-      <Trending trending={trending} movies={movies} />
-      <Discover movies={movies} discover={discover} />
+      <Trending trending={trending} movies={movies} loading={loadingTrending}/>
+      <Discover movies={movies} discover={discover} loading={loadingDiscover}/>
     </>
   );
 };
