@@ -49,7 +49,6 @@ const App: FC = () => {
   const [discover, setDiscover] = useState<[]>([]);
   const [searched, setSearched] = useState<[]>([]);
   const [searchQuery, setSearchQuery] = useState<string>("");
-  
 
   //Functions
   const getTrending = async (url: string) => {
@@ -65,7 +64,6 @@ const App: FC = () => {
 
   const getFirebaseMovies = async () => {
     const moviesSnapshot = await moviesCollection.get();
-
     setFirebaseMovies(moviesSnapshot.docs.map((doc) => doc.data()));
   };
 
@@ -90,7 +88,7 @@ const App: FC = () => {
   }, []);
 
   useEffect(() => {
-    if (searchQuery.length !== 0){
+    if (searchQuery.length !== 0) {
       getSearched(
         `https://api.themoviedb.org/3/search/multi?api_key=da0e9e70e92a41b0c9ecb97614df3b6e&query=${searchQuery}`
       );
@@ -100,7 +98,11 @@ const App: FC = () => {
   return (
     <MuiThemeProvider theme={ourTheme}>
       <Router>
-        <Nav searchQuery={searchQuery} setSearchQuery={setSearchQuery} getFirebaseMovies={getFirebaseMovies} />
+        <Nav
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+          getFirebaseMovies={getFirebaseMovies}
+        />
         <main className="App">
           <Container className={classes.container}>
             <Switch>

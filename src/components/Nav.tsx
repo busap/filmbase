@@ -98,11 +98,11 @@ const Nav: FC<Props> = ({ searchQuery, setSearchQuery, getFirebaseMovies }) => {
   const history = useHistory();
 
   const handleChangeSearch = (e: any) => {
-    if (history.location.pathname !== '/search') {
-      history.push('/search')
-    } 
-    setSearchQuery(e.target.value)
-  }
+    if (history.location.pathname !== "/search") {
+      history.push("/search");
+    }
+    setSearchQuery(e.target.value);
+  };
 
   return (
     <nav className={classes.root}>
@@ -110,7 +110,9 @@ const Nav: FC<Props> = ({ searchQuery, setSearchQuery, getFirebaseMovies }) => {
         <Toolbar>
           <Typography className={classes.title} noWrap>
             <Link to="/">
-              <Button className={classes.btn} onClick={getFirebaseMovies}>Home</Button>
+              <Button className={classes.btn} onClick={getFirebaseMovies}>
+                Home
+              </Button>
             </Link>
           </Typography>
           <div className={classes.search}>
